@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FPSTracker.Models;
 
 namespace FPSTracker.Data
 {
@@ -9,5 +10,7 @@ namespace FPSTracker.Data
             : base(options)
         {
         }
+        public DbSet<UserName> UserName { get; set; }
+        public DbSet<Game> Games { get; set; }
     }
 }
