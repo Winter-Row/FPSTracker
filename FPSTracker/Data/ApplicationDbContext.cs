@@ -12,5 +12,6 @@ namespace FPSTracker.Data
         }
         public DbSet<UserName> UserName { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<Match> Matchs { get; set; }
     }
 }
