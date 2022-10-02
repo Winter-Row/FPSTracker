@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<FPSTracker.Models.UserName>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "User Names";
 }
 
-<h1>Index</h1>
+<h1>User Names</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -22,7 +22,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+               <a asp-controller="Games" asp-action = "Index" asp-route-UserNameId = "@item.UserNameId">@Html.DisplayFor(modelItem => item.Name)</a> 
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UserNameId">Edit</a> |
