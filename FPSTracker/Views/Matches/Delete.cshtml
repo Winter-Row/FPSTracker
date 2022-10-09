@@ -24,10 +24,28 @@
             @Html.DisplayFor(model => model.Ratio)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TeamScore)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TeamScore)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OpponentScore)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OpponentScore)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Game)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Game.GameName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName.Name)
         </dd>
     </dl>
     

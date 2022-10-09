@@ -22,8 +22,7 @@ namespace FPSTracker.Controllers
         // GET: Games
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Games.Include(g => g.UserName);
-            return View(await applicationDbContext.ToListAsync());
+              return View(await _context.Games.ToListAsync());
         }
 
         // GET: Games/Details/5
@@ -35,7 +34,6 @@ namespace FPSTracker.Controllers
             }
 
             var game = await _context.Games
-                .Include(g => g.UserName)
                 .FirstOrDefaultAsync(m => m.GameId == id);
             if (game == null)
             {
@@ -48,7 +46,6 @@ namespace FPSTracker.Controllers
         // GET: Games/Create
         public IActionResult Create()
         {
-            ViewData["UserNameId"] = new SelectList(_context.UserName, "UserNameId", "Name");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace FPSTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GameId,GameName,UserNameId")] Game game)
+        public async Task<IActionResult> Create([Bind("GameId,GameName,Rating,GameSize")] Game game)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace FPSTracker.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserNameId"] = new SelectList(_context.UserName, "UserNameId", "Name", game.UserNameId);
             return View(game);
         }
 
@@ -82,7 +78,6 @@ namespace FPSTracker.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserNameId"] = new SelectList(_context.UserName, "UserNameId", "Name", game.UserNameId);
             return View(game);
         }
 
@@ -91,7 +86,7 @@ namespace FPSTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GameId,GameName,UserNameId")] Game game)
+        public async Task<IActionResult> Edit(int id, [Bind("GameId,GameName,Rating,GameSize")] Game game)
         {
             if (id != game.GameId)
             {
@@ -118,7 +113,6 @@ namespace FPSTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserNameId"] = new SelectList(_context.UserName, "UserNameId", "Name", game.UserNameId);
             return View(game);
         }
 
@@ -131,7 +125,6 @@ namespace FPSTracker.Controllers
             }
 
             var game = await _context.Games
-                .Include(g => g.UserName)
                 .FirstOrDefaultAsync(m => m.GameId == id);
             if (game == null)
             {

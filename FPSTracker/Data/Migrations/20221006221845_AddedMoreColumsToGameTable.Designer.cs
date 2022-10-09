@@ -4,6 +4,7 @@ using FPSTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPSTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221006221845_AddedMoreColumsToGameTable")]
+    partial class AddedMoreColumsToGameTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,16 +56,13 @@ namespace FPSTracker.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MatchId"), 1L, 1);
 
-                    b.Property<int?>("GameId")
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OpponentScore")
-                        .HasColumnType("int");
+                    b.Property<float?>("Ratio")
+                        .HasColumnType("real");
 
-                    b.Property<decimal?>("Ratio")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("TeamScore")
+                    b.Property<int>("TeamScore")
                         .HasColumnType("int");
 
                     b.Property<int>("UserNameId")
@@ -312,7 +311,9 @@ namespace FPSTracker.Data.Migrations
                 {
                     b.HasOne("FPSTracker.Models.Game", "Game")
                         .WithMany()
-                        .HasForeignKey("GameId");
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FPSTracker.Models.UserName", "UserName")
                         .WithMany()

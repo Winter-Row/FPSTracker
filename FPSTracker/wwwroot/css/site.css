@@ -13,6 +13,29 @@ html {
   min-height: 100%;
 }
 
+a {
+    color: #9C27B0;
+}
+a:hover {
+    color: #E1BEE7;
+}
+
 body {
   margin-bottom: 60px;
+}
+.navbar-dark {
+    background-color: #7B1FA2;
+}
+img{
+    height: 50px;
+}
+.btn-primary {
+    background-color: #FFC107;
+    color: #7B1FA2;
+    border-color: #FFC107;
+}
+.btn-primary:hover {
+    background-color: #7B1FA2;
+    color: #FFC107;
+    border-color: #7B1FA2;
 }

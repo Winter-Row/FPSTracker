@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<FPSTracker.Models.Match>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Matches";
 }
 
-<h1>Index</h1>
+<h1>Matches</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add a Match</a>
 </p>
 <table class="table">
     <thead>
@@ -19,7 +19,13 @@
                 @Html.DisplayNameFor(model => model.Ratio)
             </th>
             <th>
+                Match Score
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Game)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th></th>
         </tr>
@@ -34,7 +40,13 @@
                 @Html.DisplayFor(modelItem => item.Ratio)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.TeamScore) - @Html.DisplayFor(modelItem => item.OpponentScore)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Game.GameName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MatchId">Edit</a> |

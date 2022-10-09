@@ -8,7 +8,8 @@ namespace FPSTracker.Models
         [Required]
         [MaxLength(255)]
         public string? Name { get; set; }
-        public List<Game>? Games { get; set; }
+        public int GameId { get; set; }
+        public Game? Game { get; set; }
 
     }
 }

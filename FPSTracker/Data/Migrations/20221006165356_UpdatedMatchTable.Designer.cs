@@ -4,6 +4,7 @@ using FPSTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPSTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221006165356_UpdatedMatchTable")]
+    partial class UpdatedMatchTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,13 +37,12 @@ namespace FPSTracker.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("GameSize")
+                    b.Property<int>("UserNameId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Rating")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("GameId");
+
+                    b.HasIndex("UserNameId");
 
                     b.ToTable("Games");
                 });
@@ -54,16 +55,13 @@ namespace FPSTracker.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MatchId"), 1L, 1);
 
-                    b.Property<int?>("GameId")
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OpponentScore")
-                        .HasColumnType("int");
+                    b.Property<float?>("Ratio")
+                        .HasColumnType("real");
 
-                    b.Property<decimal?>("Ratio")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("TeamScore")
+                    b.Property<int>("TeamScore")
                         .HasColumnType("int");
 
                     b.Property<int>("UserNameId")
@@ -91,17 +89,12 @@ namespace FPSTracker.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserNameId"), 1L, 1);
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("UserNameId");
-
-                    b.HasIndex("GameId");
 
                     b.ToTable("UserName");
                 });
@@ -308,11 +301,24 @@ namespace FPSTracker.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FPSTracker.Models.Game", b =>
+                {
+                    b.HasOne("FPSTracker.Models.UserName", "UserName")
+                        .WithMany("Games")
+                        .HasForeignKey("UserNameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserName");
+                });
+
             modelBuilder.Entity("FPSTracker.Models.Match", b =>
                 {
                     b.HasOne("FPSTracker.Models.Game", "Game")
                         .WithMany()
-                        .HasForeignKey("GameId");
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FPSTracker.Models.UserName", "UserName")
                         .WithMany()
@@ -323,17 +329,6 @@ namespace FPSTracker.Data.Migrations
                     b.Navigation("Game");
 
                     b.Navigation("UserName");
-                });
-
-            modelBuilder.Entity("FPSTracker.Models.UserName", b =>
-                {
-                    b.HasOne("FPSTracker.Models.Game", "Game")
-                        .WithMany("Usernames")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -387,9 +382,9 @@ namespace FPSTracker.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FPSTracker.Models.Game", b =>
+            modelBuilder.Entity("FPSTracker.Models.UserName", b =>
                 {
-                    b.Navigation("Usernames");
+                    b.Navigation("Games");
                 });
 #pragma warning restore 612, 618
         }
