@@ -49,6 +49,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.MatchId">Edit</a> |
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.MatchId">Edit</a> 
+    }
     <a asp-action="Index">Back to List</a>
 </div>

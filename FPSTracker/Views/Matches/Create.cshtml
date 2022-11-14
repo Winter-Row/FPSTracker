@@ -13,9 +13,12 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="WinOrLoss" class="control-label"></label>
-                <input asp-for="WinOrLoss" class="form-control" />
-                <span asp-validation-for="WinOrLoss" class="text-danger"></span>
+                @Html.RadioButtonFor(m => m.WinOrLoss,"Win")
+                <label asp-for="WinOrLoss" class="form-check-label">Win</label>
+            </div>
+            <div class="form-group">
+                @Html.RadioButtonFor(m => m.WinOrLoss,"Loss")
+                <label asp-for="WinOrLoss" class="form-check-label">Loss</label>
             </div>
             <div class="form-group">
                 <label asp-for="Ratio" class="control-label"></label>

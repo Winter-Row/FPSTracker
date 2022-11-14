@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FPSTracker.Data;
 using FPSTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FPSTracker.Controllers
 {
+    [Authorize]
     public class GamesController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FPSTracker.Data;
 using FPSTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FPSTracker.Controllers
 {
+    [Authorize]
     public class MatchesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,12 +22,14 @@ namespace FPSTracker.Controllers
         }
 
         // GET: Matches
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Matchs.Include(m => m.Game).Include(m => m.UserName);
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Matches/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -50,7 +54,7 @@ namespace FPSTracker.Controllers
         public IActionResult Create()
         {
             ViewData["GameId"] = new SelectList(_context.Games, "GameId", "GameName");
-            ViewData["UserNameId"] = new SelectList(_context.UserName, "UserNameId", "Name");
+            ViewData["UserNameId"] = new SelectList(_context.UserName.OrderBy(c => c.Name), "UserNameId", "Name");
             return View();
         }
 

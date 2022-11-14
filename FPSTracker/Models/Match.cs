@@ -6,10 +6,7 @@ namespace FPSTracker.Models
         public int MatchId { get; set; }
 
         [Required]
-        [MaxLength(4)]
-        //checking that input is only the word win o loss
-        //found here https://www.geeksforgeeks.org/what-is-regular-expression-in-c-sharp/#:~:text=In%20C%23%2C%20Regular%20Expression%20is,that%20allows%20the%20pattern%20matching.
-        [RegularExpression("Win|Loss|win|loss", ErrorMessage = "Must Enter Win or Loss")]
+        [Display(Name = "Win Or Loss")]
         public string? WinOrLoss { get; set; }
 
         [Range(0, 10, ErrorMessage = "Enter a number between 0 - 10")]
@@ -17,16 +14,20 @@ namespace FPSTracker.Models
         public decimal? Ratio { get; set; }
 
         [Range(0, 10000, ErrorMessage = "Enter a number between 0 - 10,000")]
+        [Display(Name = "Team Score")]
         public int? TeamScore { get; set; }
 
         [Range(0, 10000, ErrorMessage = "Enter a number between 0 - 10,000")]
+        [Display(Name = "Oppeonent Score")]
         public int? OpponentScore { get; set; }
 
         //FK for reference
+        [Display(Name = "Game")]
         public int? GameId { get; set; }
         public Game? Game { get; set; }
 
         //FK for reference
+        [Display(Name = "User Name")]
         public int UserNameId { get; set; }
         public UserName? UserName { get; set; }
     }
