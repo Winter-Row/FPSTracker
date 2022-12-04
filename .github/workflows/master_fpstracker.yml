@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'FPSTracker'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C91A9C7BBC748FFABF99D68F3AED5C4 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7C99A1A8F4E644E4A0FB67D4EA5D2C9C }}
           package: .
