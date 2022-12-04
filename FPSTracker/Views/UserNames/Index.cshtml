@@ -30,11 +30,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Game.GameName)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UserNameId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserNameId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserNameId">Delete</a>
-            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserNameId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserNameId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UserNameId">Delete</a>
+                </td>
+            }else
+            {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.UserNameId">Details</a>  
+                </td>
+            }
+
         </tr>
 }
     </tbody>

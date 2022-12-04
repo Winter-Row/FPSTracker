@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPSTracker", "FPSTracker\FPSTracker.csproj", "{E67AD2D2-5263-4947-B728-C5838317F4A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPSTracker", "FPSTracker\FPSTracker.csproj", "{E67AD2D2-5263-4947-B728-C5838317F4A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPSTrackerTest", "FPSTrackerTest\FPSTrackerTest.csproj", "{9EB58485-8351-47EC-8DDC-52BD0E75B08E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E67AD2D2-5263-4947-B728-C5838317F4A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E67AD2D2-5263-4947-B728-C5838317F4A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E67AD2D2-5263-4947-B728-C5838317F4A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EB58485-8351-47EC-8DDC-52BD0E75B08E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EB58485-8351-47EC-8DDC-52BD0E75B08E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EB58485-8351-47EC-8DDC-52BD0E75B08E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EB58485-8351-47EC-8DDC-52BD0E75B08E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

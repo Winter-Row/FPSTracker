@@ -20,35 +20,35 @@ namespace FPSTracker.Controllers
         {
             _context = context;
         }
-
+        [AllowAnonymous]
         // GET: Games
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Games.ToListAsync());
+              return View("Index",await _context.Games.ToListAsync());
         }
-
+        [AllowAnonymous]
         // GET: Games/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Games == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var game = await _context.Games
                 .FirstOrDefaultAsync(m => m.GameId == id);
             if (game == null)
             {
-                return NotFound();
+                return View("404");
             }
 
-            return View(game);
+            return View("Details",game);
         }
 
         // GET: Games/Create
         public IActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Games/Create
@@ -123,17 +123,17 @@ namespace FPSTracker.Controllers
         {
             if (id == null || _context.Games == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var game = await _context.Games
                 .FirstOrDefaultAsync(m => m.GameId == id);
             if (game == null)
             {
-                return NotFound();
+                return View("404");
             }
 
-            return View(game);
+            return View("Delete",game);
         }
 
         // POST: Games/Delete/5

@@ -20,14 +20,14 @@ namespace FPSTracker.Controllers
         {
             _context = context;
         }
-
+        [AllowAnonymous]
         // GET: UserNames
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.UserName.Include(u => u.Game);
             return View(await applicationDbContext.ToListAsync());
         }
-
+        [AllowAnonymous]
         // GET: UserNames/Details/5
         public async Task<IActionResult> Details(int? id)
         {

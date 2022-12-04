@@ -7,7 +7,10 @@
 <h1>Games</h1>
 
 <p>
-    <a asp-action="Create">Add New Game</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+            <a asp-action="Create">Add New Game</a>
+    }
 </p>
 <table class="table">
     <thead>
@@ -36,11 +39,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GameSize)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.GameId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GameId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GameId">Delete</a>
-            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.GameId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.GameId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.GameId">Delete</a>
+                </td>
+            }else
+            {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.GameId">Details</a>
+                </td>    
+            }
         </tr>
 }
     </tbody>
