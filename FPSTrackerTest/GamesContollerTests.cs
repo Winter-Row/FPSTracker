@@ -2,6 +2,7 @@ using FPSTracker.Controllers;
 using FPSTracker.Data;
 using FPSTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -106,7 +107,6 @@ namespace FPSTrackerTest
             Assert.AreEqual(context.Games.Find(25), result.Model);
         }
         #endregion
-
         #region "Delete Tests"
         [TestMethod]
         public void DeleteNoIdLoads404()
@@ -157,20 +157,129 @@ namespace FPSTrackerTest
             Assert.AreEqual(context.Games.Find(25), result.Model);
         }
         #endregion
+        #region "Edit Tests"
+        [TestMethod]
+        public void EditNoIdLoads404()
+        {
+            //act
+            var result = (ViewResult)controller.Edit(null).Result;
+
+            //assert
+            Assert.AreEqual("404", result.ViewName);
+        }
+        [TestMethod]
+        public void EditNoGametableLoads404()
+        {
+            //arrange
+            context.Games = null;
+
+            //act
+            var result = (ViewResult)controller.Edit(null).Result;
+
+            //assert
+            Assert.AreEqual("404", result.ViewName);
+        }
+        [TestMethod]
+        public void EditInvaildIdLoads404()
+        {
+            //act
+            var result = (ViewResult)controller.Edit(500).Result;
+
+            //assert
+            Assert.AreEqual("404", result.ViewName);
+        }
+        [TestMethod]
+        public void EditIdLoadsView()
+        {
+            //act
+            var result = (ViewResult)controller.Edit(25).Result;
+
+            //assert
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+        [TestMethod]
+        public void EditIdLoadsGame()
+        {
+            //act
+            var result = (ViewResult)controller.Edit(25).Result;
+
+            //assert
+            Assert.AreEqual(context.Games.Find(25), result.Model);
+        }
+        [TestMethod]
+        public void EditGameAndIdLoadsVaildView()
+        {
+            //act
+            controller.ModelState.AddModelError("", "No error");
+            var result = (ViewResult)controller.Edit(25,context.Games.Find(25)).Result;
+
+            //assert
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        [TestMethod]
+        public void EditGameIddAndIdNotMatchingLoads404()
+        {
+            //act
+            controller.ModelState.AddModelError("", "No error");
+            var result = (ViewResult)controller.Edit(23, context.Games.Find(28)).Result;
+
+            //assert
+            Assert.AreEqual("404", result.ViewName);
+        }
+        [TestMethod]
+        public void EditInvalidGame()
+        {
+            //arrange
+            var game = new Game { GameId = 55, GameSize = 10, Rating = "M" };
+
+            //act
+            controller.ModelState.AddModelError("GameName", "No Name");
+            var result = (ViewResult)controller.Edit(55, game).Result;
+
+            //assert
+            Assert.AreEqual("Edit", result.ViewName);
+            Assert.AreEqual(game,result.Model);
+        }
+        #endregion
         #region "Create Tests"
         [TestMethod]
         public void CreateLoadView()
         {
-            //arrange
-            //done in TestInitialize
-
             //act
             var result = (ViewResult)controller.Create();
 
             //assert
             Assert.AreEqual("Create", result.ViewName);
-
         }
+        [TestMethod]
+        public void CreateValidGameLoadsGame()
+        {
+            //arrange
+            var game = new Game { GameId = 55, GameName = "Game 55", GameSize = 10, Rating = "M" };
+
+            //act
+            controller.ModelState.AddModelError("", "No error");
+            var result = (ViewResult)controller.Create(game).Result;
+
+            //assert
+            Assert.AreEqual(game, result.Model);
+        }
+        [TestMethod]
+        public void CreateInvalidGame()
+        {
+            //arrange
+            var game = new Game { GameId = 55, GameSize = 10, Rating = "M" };
+
+            //act
+            controller.ModelState.AddModelError("GameName", "No Name");
+            var result = (ViewResult)controller.Create(game).Result;
+
+            //assert
+            Assert.AreEqual(game, result.Model);
+            Assert.AreEqual("Create", result.ViewName);
+        }
+
         #endregion
     }
 }

@@ -64,7 +64,7 @@ namespace FPSTracker.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+            return View("Create",game);
         }
 
         // GET: Games/Edit/5
@@ -72,15 +72,15 @@ namespace FPSTracker.Controllers
         {
             if (id == null || _context.Games == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var game = await _context.Games.FindAsync(id);
             if (game == null)
             {
-                return NotFound();
+                return View("404");
             }
-            return View(game);
+            return View("Edit",game);
         }
 
         // POST: Games/Edit/5
@@ -92,7 +92,7 @@ namespace FPSTracker.Controllers
         {
             if (id != game.GameId)
             {
-                return NotFound();
+                return View("404");
             }
 
             if (ModelState.IsValid)
@@ -106,7 +106,7 @@ namespace FPSTracker.Controllers
                 {
                     if (!GameExists(game.GameId))
                     {
-                        return NotFound();
+                        return View("404");
                     }
                     else
                     {
@@ -115,7 +115,7 @@ namespace FPSTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(game);
+            return View("Edit",game);
         }
 
         // GET: Games/Delete/5
